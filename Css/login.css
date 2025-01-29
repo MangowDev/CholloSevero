@@ -1,0 +1,150 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Manrope:wght@200..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+
+html, body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%; 
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    background-image: url("../Assets/Images/Bg_Images/loginBackgroundBlur.webp");
+    background-repeat: no-repeat; 
+    background-attachment: fixed; 
+    background-size: cover;
+    background-position: center -250px;
+}
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 100px;
+
+}
+
+.logo-container{
+    display: flex;
+    justify-content: center;
+    margin-right: 20px;
+    flex-direction: row;
+    margin-bottom: 20px;
+}
+
+.logo-container img{
+    width: auto;
+    height: 150px;
+    margin-top: 5px;
+}
+
+.logo-container h1{
+    font-family: "Manrope", serif;
+    color: #1E3A5F;
+    font-size: 60px;
+    text-shadow: 2px 2px 2px #2c578e;
+}
+
+form{
+    padding-bottom: 40px;
+    padding-left: 60px;
+    padding-right: 60px;
+    background-color: rgba(237, 237, 237, 0.8);
+    border-radius: 10px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    border: 3px solid #2c578e;
+    font-family: "Noto Sans", serif;
+    width: 90%;
+}
+
+.login-title{
+    text-align: left;
+    font-family: "Poppins", serif;
+    font-size: 40px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    color: #3579d2;
+}
+
+
+.label-div i{
+    font-size: 22px;
+    margin-right: 5px;
+}
+
+form label{
+    font-size: 22px;
+
+}
+
+form input{
+    color: rgb(237, 237, 237);
+    padding: 10px;
+    background-color: #2c578e;
+    border: 2px solid #1E3A5F;
+    outline: none;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+form button{
+    font-family: "Poppins", serif;
+    align-self: center;
+    text-align: center;
+    outline: none;
+    color: rgb(237, 237, 237);
+    background-color: #3579d2;
+    border: 2px solid #2c578e;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 25px;
+    width: 100%;
+    font-weight: 600;
+    padding: 7px;
+    transition: 0.2s;
+}
+
+form button:hover{
+    background-color: #1b98ff;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+form span{
+    font-family: "Noto Sans", serif;
+    font-size: 22px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+span a{
+    font-weight: 700;
+    color: #3579d2;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+span a:hover{
+    color: #1b98ff;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.notify-message{
+    font-size: 25px;
+    font-family: "Noto Sans", serif;
+    color: #5815d6;
+    text-align: center;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    font-weight: 700;
+    margin-bottom: 5px;
+    word-wrap: break-word;
+    overflow: hidden; 
+    white-space: normal; 
+}
