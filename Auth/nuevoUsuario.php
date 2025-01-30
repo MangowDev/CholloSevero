@@ -1,4 +1,8 @@
 <?php 
+require_once __DIR__ . '/../vendor/autoload.php';
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '../');
+$dotenv->load();
 
 $message = "";
 
@@ -7,7 +11,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
     $email = $_POST["email"];
 
-    $db = new mysqli('localhost', 'root', '', 'chollosevero');
+    $db = new mysqli(
+        getenv('DB_HOST'),
+        getenv('DB_USER'),
+        getenv('DB_PASS'),
+        getenv('DB_NAME')
+    );
 
     if ($db->connect_error) {
         die("Connection failed: " . $db->connect_error);
@@ -38,5 +47,3 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     header("Location: ../Views/registro.php?message=$message");
     exit();
 }
-
-?>

@@ -1,11 +1,21 @@
 <?php 
+require_once __DIR__ . '/../vendor/autoload.php';
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . "/..");
+$dotenv->load();
+
 $message = "";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $username = $_POST["username"];
     $password = $_POST["password"];
 
-    $db = new mysqli('localhost', 'root', '', 'chollosevero');
+    $db = new mysqli(
+        $_ENV['DB_HOST'],
+        $_ENV['DB_USER'],
+        $_ENV['DB_PASS'],
+        $_ENV['DB_NAME']
+    );
 
     if ($db->connect_error) {
         die("Connection failed: " . $db->connect_error);
@@ -13,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if (empty($username) || empty($password)) {
         $message = "All fields are required.";
-        header("Location: ../Views/registro.php?message=" . urlencode($message));
+        header("Location: ../Views/registro.php?message=$message");
         exit();
     }
 

@@ -11,7 +11,7 @@
 <body>
     <div class="login-container">
         <div class="logo-container">
-            <img src="../Assets/Images/Bg_Images/LogoNoBg.png" alt="logo">
+            <img src="../Assets/Images/Logo_Images/LogoNoBg.png" alt="logo">
             <h1 class="form-title">Chollosevero</h1>
         </div>
         <form action="../Auth/nuevoUsuario.php" method="POST">
