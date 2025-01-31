@@ -1,7 +1,12 @@
-<?php 
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '../');
+$dotenvPath = '../';
+$dotenv = Dotenv\Dotenv::createImmutable($dotenvPath, '.env.local');
 $dotenv->load();
 
 $message = "";
@@ -12,23 +17,27 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email = $_POST["email"];
 
     $db = new mysqli(
-        getenv('DB_HOST'),
-        getenv('DB_USER'),
-        getenv('DB_PASS'),
-        getenv('DB_NAME')
+        $_ENV['DB_HOST'],
+        $_ENV['DB_USER'],
+        $_ENV['DB_PASS'],
+        $_ENV['DB_NAME']
     );
 
     if ($db->connect_error) {
         die("Connection failed: " . $db->connect_error);
     }
 
-    if (empty($username) || empty($password) || empty($email)) {
+    if (empty($username) || empty($_POST["password"]) || empty($email)) {
         $message = "All fields are required.";
-        header("Location: ../Views/registro.php?message=$message");
+        header("Location: /Views/registro.php?message=" . urlencode($message));
         exit();
     }
 
     $stmt = $db->prepare("INSERT INTO user (username, password, email, role) VALUES (?, ?, ?, 'user')");
+    if ($stmt === false) {
+        die("Prepare failed: " . $db->error);
+    }
+
     $stmt->bind_param("sss", $username, $password, $email);
 
     if ($stmt->execute()) {
@@ -40,10 +49,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $stmt->close();
     $db->close();
 
-    header("Location: ../Views/registro.php?message=$message");
+    header("Location: ../Views/login.php?message=" . urlencode($message));
     exit();
 
 } else {
-    header("Location: ../Views/registro.php?message=$message");
+    header("Location: ../Views/login.php");
     exit();
 }

@@ -1,7 +1,12 @@
-<?php 
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . "/..");
+$dotenvPath = '../';
+$dotenv = Dotenv\Dotenv::createImmutable($dotenvPath, '.env.local');
 $dotenv->load();
 
 $message = "";
@@ -23,11 +28,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if (empty($username) || empty($password)) {
         $message = "All fields are required.";
-        header("Location: ../Views/registro.php?message=$message");
+        header("Location: ../Views/registro.php?message=" . urlencode($message));
         exit();
     }
 
     $stmt = $db->prepare("SELECT id, username, password FROM user WHERE username = ?");
+    if ($stmt === false) {
+        die("Prepare failed: " . $db->error);
+    }
+
     $stmt->bind_param("s", $username);
     $stmt->execute();
     $stmt->store_result();
@@ -38,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         if (password_verify($password, $hashed_password)) {
             $message = "Login successful. Welcome, $username!";
-            header("Location: ../Views/chollos.php?message=$message");
+            header("Location: ../Views/chollos.php?message=" . urlencode($message));
             exit();
         } else {
             $message = "Incorrect password.";
@@ -50,10 +59,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $stmt->close();
     $db->close();
 
-    header("Location: ../Views/registro.php?message=$message");
+    header("Location: ../Views/login.php?message=" . urlencode($message));
     exit();
 } else {
-    header("Location: ../Views/registro.php?message=$message");
+    header("Location: ../Views/login.php?message=" . urlencode($message));
     exit();
 }
 ?>

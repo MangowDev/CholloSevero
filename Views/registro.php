@@ -31,7 +31,10 @@
                 <label for="email">Email:</label>
             </div>
             <input type="email" id="email" name="email" required>
-
+            <div class="radio-div"> 
+                <input type="radio" id="terms" name="terms" value="terms" rquired>
+                <label for="terms">I accept the terms and conditions.</label>
+            </div>
             <button type="submit">Register</button>
             <span>Already have an account? <a href="./login.php">Log in here</a></span>
             <?php

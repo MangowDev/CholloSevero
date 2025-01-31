@@ -18,15 +18,6 @@ html, body {
     background-position: center -250px;
 }
 
-.login-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 100px;
-
-}
-
 .logo-container{
     display: flex;
     justify-content: center;
@@ -91,6 +82,21 @@ form input{
     margin-top: 15px;
     margin-bottom: 20px;
     font-size: 20px;
+}
+
+.radio-div{
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.radio-div label{
+    margin-bottom: 10px;
+}
+
+.radio-div input{
+    margin-right: 10px;
+    transform: scale(1.5);
 }
 
 form button{

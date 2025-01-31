@@ -29,15 +29,15 @@
 
             <button type="submit">Log in</button>
             <span>Don't have an account? <a href="./registro.php">Sign up here</a></span>
+            <?php
+            if (isset($_GET['message'])) {
+                $message = $_GET["message"];
+                echo "<p class='notify-message'>" . $message . "</p>";
+            }
+            ?>
         </form>
     </div>
 
-    <?php
-    if (isset($_GET['mensaje'])) {
-        $mensaje = $_GET["mensaje"];
-        echo "<p style='font-weight:bold;'>" . $mensaje . "</p>";
-    }
-    ?>
     <script src="https://kit.fontawesome.com/8b39d50696.js" crossorigin="anonymous"></script>
 </body>
 
