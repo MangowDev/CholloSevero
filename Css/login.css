@@ -18,6 +18,10 @@ html, body {
     background-position: center -250px;
 }
 
+.login-container{
+    margin-bottom: 50px;
+}
+
 .logo-container{
     display: flex;
     justify-content: center;

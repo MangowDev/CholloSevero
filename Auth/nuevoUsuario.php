@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if (empty($username) || empty($_POST["password"]) || empty($email)) {
         $message = "All fields are required.";
-        header("Location: /Views/registro.php?message=" . urlencode($message));
+        header("Location: /Views/registro.php?message=$message");
         exit();
     }
 
@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $stmt->close();
     $db->close();
 
-    header("Location: ../Views/login.php?message=" . urlencode($message));
+    header("Location: ../Views/login.php?message=$message");
     exit();
 
 } else {
