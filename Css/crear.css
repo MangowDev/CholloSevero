@@ -147,3 +147,24 @@ nav i{
   color: #fff;
   font-size: 20px;
 }
+
+form{
+  width: 100%;
+  padding: 20px;
+}
+
+div.form-row{
+  margin-top: 30px;
+}
+
+form input{
+  width: 100%;
+}
+
+form label{
+  margin-right: 10px;
+}
+
+form textarea{
+  width: 100%;
+}

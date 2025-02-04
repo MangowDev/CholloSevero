@@ -1,3 +1,11 @@
+<?php
+
+session_start();
+
+$username = $_SESSION["username"];
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,16 +42,16 @@
         </div>
         <div class="col-lg-4 col-6 d-flex flex-row align-items-center justify-content-left text-left search-bar-div">
             <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" id="searchbar" name="searchbar" placeholder="Search chollos here...">
+            <input type="text" id="searchbar" name="searchbar" placeholder="Search deals here...">
         </div>
-        <!--         <div class="col-lg-3 col-6 d-flex flex-row align-items-center justify-content-end text-end user-div">
+                <div class="col-lg-3 col-6 d-flex flex-row align-items-center justify-content-end text-end user-div">
             <i class="fa-regular fa-user"></i>
-            <h4>Username</h4>
-        </div> -->
-        <div class="col-lg-3 col-6 d-flex flex-row align-items-center justify-content-end text-end user-div">
+            <h4><?php echo $username ?></h4>
+        </div> 
+        <!-- <div class="col-lg-3 col-6 d-flex flex-row align-items-center justify-content-end text-end user-div">
             <i class="fa-regular fa-user"></i>
             <h4>Login/Register</h4>
-        </div>
+        </div> -->
     </header>
     <nav>
         <div>
@@ -57,28 +65,43 @@
     </nav>
     <section>
         <form action="../Controllers/crearChollo.php" method="POST">
+            <div class="row form-row">
+                <div class="col-lg-4 col-6 d-flex flex-column align-items-startjustify-content-start text-left form-col">
+                    <label for="title">Title:</label>
+                    <input type="text" id="title" name="title" required>
+                </div>
+                <div class="col-lg-4 col-6 d-flex flex-column align-items-start justify-content-start text-left form-col">
+                    <label for="price">Price:</label>
+                    <input type="number" id="price" step="0.01" name="price" required>
+                </div>
+                <div class="col-lg-4 col-6 d-flex flex-column align-items-start justify-content-start text-left form-col">
+                    <label for="previous_price">Previous price:</label>
+                    <input type="number" id="previous_price" step="0.01" name="previous_price" required>
+                </div>
+            </div>
+            <div class="row form-row">
+                <div class="col-lg-4 col-6 d-flex flex-column align-items-start justify-content-start text-left form-col">
 
-            <label for="title">Title:</label>
-            <input type="text" id="title" name="title" required>
+                    <label for="rating">Rating:</label>
+                    <input type="number" id="rating" max="5" step="0.01" name="rating" required>
+                </div>
+                <div class="col-lg-4 col-6 d-flex flex-column align-items-start justify-content-start text-left form-col">
 
-            <label for="price">Price:</label>
-            <input type="number" id="price" step="0.01" name="price" required>
+                    <label for="shop">Shop:</label>
+                    <input type="text" id="shop" name="shop" maxlength="50" required>
+                </div>
+                <div class="col-lg-4 col-6 d-flex flex-column align-items-start justify-content-start text-left form-col">
 
-            <label for="previous_price">Previous price:</label>
-            <input type="number" id="previous_price" step="0.01" name="previous_price" required>
-
-            <label for="rating">Rating:</label>
-            <input type="number" id="rating" max="5" step="0.01" name="rating" required>
-
-            <label for="shop">Shop:</label>
-            <input type="text" id="shop" name="shop" maxlength="50" required>
-
-            <label for="image">Image:</label>
-            <input type="text" id="image" name="image">
-
-            <label for="description">Description:</label>
-            <textarea id="description" name="description" rows="4" maxlength="200"></textarea>
-
+                    <label for="image">Image:</label>
+                    <input type="text" id="image" name="image">
+                </div>
+            </div>
+            <div class="row form-row">
+                <div class="col-12 d-flex flex-column align-items-start justify-content-start text-left form-col">
+                    <label for="description">Description:</label>
+                    <textarea id="description" name="description" rows="4" maxlength="200"></textarea>
+                </div>
+            </div>
             <button type="submit">Send</button>
         </form>
 

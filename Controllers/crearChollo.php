@@ -9,6 +9,8 @@ $dotenvPath = '../';
 $dotenv = Dotenv\Dotenv::createImmutable($dotenvPath, '.env.local');
 $dotenv->load();
 
+session_start();
+
 $message = "";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -35,10 +37,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $shop = $_POST['shop'];
         $image = $_POST['image'];
         $description = $_POST['description'];
+        $userId = $_SESSION["id"];
 
-        $stmt = $db->prepare("INSERT INTO deals (title, price, previous_price, rating, description, shop, image) VALUES (?,?,?,?,?,?,?)");
+        $stmt = $db->prepare("INSERT INTO deals (title, price, previous_price, rating, description, shop, image, user_id) VALUES (?,?,?,?,?,?,?,?)");
 
-        $stmt->bind_param("sdddsss", $title, $price, $previous_price, $rating, $description, $shop, $image);
+        $stmt->bind_param("sdddsssi", $title, $price, $previous_price, $rating, $description, $shop, $image, $userId);
 
         if ($stmt->execute()) {
             $message = "Deal created succesfully.";

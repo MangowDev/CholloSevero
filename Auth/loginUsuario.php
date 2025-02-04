@@ -46,8 +46,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $stmt->fetch();
 
         if (password_verify($password, $hashed_password)) {
-            $message = "Login successful. Welcome, $username!";
-            header("Location: ../Views/chollos.php?message=" . urlencode($message));
+            session_start();
+            $_SESSION["username"] = $username;
+            $_SESSION["id"] = $id;
+            header("Location: ../Views/chollos.php?");
             exit();
         } else {
             $message = "Incorrect password.";

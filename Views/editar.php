@@ -29,6 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $description = "";
         $shop = "";
         $image = "";
+        $useId = "";
 
         $stmt = $db->prepare("SELECT * FROM deals WHERE id = $id");
 
@@ -37,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $stmt->store_result();
 
         if ($stmt->num_rows > 0) {
-            $stmt->bind_result($id, $title, $price, $previous_price, $rating, $description, $shop, $image);
+            $stmt->bind_result($id, $title, $price, $previous_price, $rating, $description, $shop, $image, $userId);
             $stmt->fetch();
         } else {
             $message = "Deal not found with the requested ID.";
@@ -86,7 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         </div>
         <div class="col-lg-4 col-6 d-flex flex-row align-items-center justify-content-left text-left search-bar-div">
             <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" id="searchbar" name="searchbar" placeholder="Search chollos here...">
+            <input type="text" id="searchbar" name="searchbar" placeholder="Search deals here...">
         </div>
         <!--         <div class="col-lg-3 col-6 d-flex flex-row align-items-center justify-content-end text-end user-div">
             <i class="fa-regular fa-user"></i>

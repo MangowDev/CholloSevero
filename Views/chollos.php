@@ -9,6 +9,10 @@ $dotenvPath = '../';
 $dotenv = Dotenv\Dotenv::createImmutable($dotenvPath, '.env.local');
 $dotenv->load();
 
+session_start();
+
+$username = $_SESSION["username"];
+
 $message = "";
 
 $db = new mysqli(
@@ -21,6 +25,8 @@ $db = new mysqli(
 if ($db->connect_error) {
     die("Connection failed: " . $db->connect_error);
 }
+
+
 
 $stmt = $db->prepare("SELECT * FROM deals");
 if ($stmt === false) {
@@ -66,16 +72,16 @@ if ($stmt === false) {
         </div>
         <div class="col-lg-4 col-6 d-flex flex-row align-items-center justify-content-left text-left search-bar-div">
             <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" id="searchbar" name="searchbar" placeholder="Search chollos here...">
+            <input type="text" id="searchbar" name="searchbar" placeholder="Search deals here...">
+        </div>
+        <div class="col-lg-3 col-6 d-flex flex-row align-items-center justify-content-end text-end user-div">
+            <i class="fa-regular fa-user"></i>
+            <h4><?php echo $username ?></h4>
         </div>
         <!--         <div class="col-lg-3 col-6 d-flex flex-row align-items-center justify-content-end text-end user-div">
             <i class="fa-regular fa-user"></i>
-            <h4>Username</h4>
-        </div> -->
-        <div class="col-lg-3 col-6 d-flex flex-row align-items-center justify-content-end text-end user-div">
-            <i class="fa-regular fa-user"></i>
             <h4>Login/Register</h4>
-        </div>
+        </div> -->
     </header>
     <nav>
         <div>
@@ -97,10 +103,29 @@ if ($stmt === false) {
             $stmt->store_result();
 
             if ($stmt->num_rows > 0) {
-                $stmt->bind_result($id, $title, $price, $previous_price, $rating, $description, $shop, $image);
+                $stmt->bind_result($id, $title, $price, $previous_price, $rating, $description, $shop, $image, $userId);
 
                 $counter = 0;
                 while ($stmt->fetch()) {
+                    if (isset($stmtUser)) {
+                        $stmtUser->close();
+                    }
+
+                    $stmtUser = $db->prepare("SELECT username FROM user WHERE id = ?");
+                    if ($stmtUser === false) {
+                        die("Prepare failed: " . $db->error);
+                    }
+
+                    $stmtUser->bind_param("i", $userId);
+                    $stmtUser->execute();
+                    $stmtUser->store_result();
+
+                    $userDeal = "Unknown";
+                    if ($stmtUser->num_rows > 0) {
+                        $stmtUser->bind_result($userDeal);
+                        $stmtUser->fetch();
+                    }
+
                     if ($counter % 2 == 0) {
                         if ($counter > 0) {
                             echo '</div>';
@@ -139,18 +164,33 @@ if ($stmt === false) {
                             </div>
                         </div>
                         <div class="d-flex flex-row align-items-between justify-content-between text-left deal-second-row">
-                            <div class="col-lg-6 d-flex flex-row align-items-start justify-content-start text-left shop-col">
+                            <div class="col-lg-3 d-flex flex-row align-items-start justify-content-start text-left shop-col">
                                 <span>Shop: <span><?php echo $shop ?></span></span>
                             </div>
-                            <div class="col-lg-6 d-flex flex-row align-items-start justify-content-start text-left shop-col">
-                                <form action="./editar.php" method="POST">
-                                    <input type="hidden" name="id" value=<?php echo $id ?>>
-                                    <button type="submit" class="edit-button">Edit</button>
-                                </form>
-                                <form action="../Controllers/eliminarChollo.php" method="POST">
-                                    <input type="hidden" name="id" value=<?php echo $id ?>>
-                                    <button type="submit" class="delete-button">Delete</button>
-                                </form>
+
+                            <?php
+                            if ($username === $userDeal) {
+
+
+                            ?>
+                                <div class="col-lg-6 d-flex flex-row align-items-center justify-content-center text-center shop-col">
+                                    <form action="./editar.php" method="POST">
+                                        <input type="hidden" name="id" value=<?php echo $id ?>>
+                                        <button type="submit" class="edit-button">Edit</button>
+                                    </form>
+                                    <form action="../Controllers/eliminarChollo.php" method="POST">
+                                        <input type="hidden" name="id" value=<?php echo $id ?>>
+                                        <button type="submit" class="delete-button">Delete</button>
+                                    </form>
+                                </div>
+
+                            <?php
+
+                            }
+
+                            ?>
+                            <div class="col-lg-3 d-flex flex-row align-items-end justify-content-end text-end shop-col">
+                                <span>Usuario: <span><?php echo $userDeal ?></span></span>
                             </div>
                         </div>
                     </div>
@@ -169,6 +209,7 @@ if ($stmt === false) {
     <script src="https://kit.fontawesome.com/8b39d50696.js" crossorigin="anonymous"></script>
 
     <?php
+    $stmtUser->close();
     $stmt->close();
     $db->close();
     ?>
