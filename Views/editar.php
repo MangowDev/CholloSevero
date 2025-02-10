@@ -47,6 +47,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $stmt->close();
         $db->close();
     }
+} else {
+    header("Location: ./chollos.php");
+    exit();
 }
 
 ?>
@@ -100,42 +103,79 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     </header>
     <nav>
         <div>
-            <i class="fa-solid fa-pencil"></i>
-            <a href="crear.php">Create</a>
+            <a href="crear.php">
+                <i class="fa-solid fa-pencil"></i>
+                <span>
+                    Create
+                </span>
+            </a>
         </div>
         <div>
-            <i class="fa-solid fa-sack-dollar"></i>
-            <a href="#">My deals</a>
+            <a href="#">
+                <i class="fa-solid fa-sack-dollar"></i>
+                <span>
+                    My Deals
+                </span>
+            </a>
+        </div>
+        <div>
+            <a href="../Controllers/disconnect.php">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>
+                    Logout
+                </span>
+            </a>
         </div>
     </nav>
-    <section>
-        <form action="../Controllers/editarChollo.php" method="POST">
+    <section class="container-fluid p-4">
+        <form class="container-fluid px-4" action="../Controllers/editarChollo.php" method="POST">
             <input type="hidden" id="id" name="id" value="<?= htmlspecialchars($id) ?>" required>
 
-            <label for="title">Title:</label>
-            <input type="text" id="title" name="title" value="<?= htmlspecialchars($title) ?>" required>
-
-            <label for="price">Price:</label>
-            <input type="number" id="price" name="price" step="0.01" value="<?= htmlspecialchars($price) ?>" required>
-
-            <label for="previous_price">Previous price:</label>
-            <input type="number" id="previous_price" name="previous_price" step="0.01" value="<?= htmlspecialchars($previous_price) ?>" required>
-
-            <label for="rating">Rating:</label>
-            <input type="number" id="rating" name="rating" max="5" step="0.01" value="<?= htmlspecialchars($rating) ?>" required>
-
-            <label for="shop">Shop:</label>
-            <input type="text" id="shop" name="shop" maxlength="50" value="<?= htmlspecialchars($shop) ?>" required>
-
-            <label for="image">Image:</label>
-            <input type="text" id="image" name="image" value="<?= htmlspecialchars($image) ?>">
-
-            <label for="description">Description:</label>
-            <textarea id="description" name="description" rows="4" maxlength="200"><?= htmlspecialchars($description) ?></textarea>
-
-            <button type="submit">Update</button>
+            <div class="row form-row">
+                <h4>Edit Deal</h4>
+            </div>
+            <div class="row form-row">
+                <div class="col-lg-4 col-6 d-flex flex-column align-items-start justify-content-start text-left form-col">
+                    <label for="title">Title:</label>
+                    <input type="text" id="title" name="title" value="<?= htmlspecialchars($title) ?>" required>
+                </div>
+                <div class="col-lg-4 col-6 d-flex flex-column align-items-start justify-content-start text-left form-col">
+                    <label for="price">Price:</label>
+                    <input type="number" id="price" name="price" step="0.01" value="<?= htmlspecialchars($price) ?>" required>
+                </div>
+                <div class="col-lg-4 col-6 d-flex flex-column align-items-start justify-content-start text-left form-col">
+                    <label for="previous_price">Previous price:</label>
+                    <input type="number" id="previous_price" name="previous_price" step="0.01" value="<?= htmlspecialchars($previous_price) ?>" required>
+                </div>
+            </div>
+            <div class="row form-row">
+                <div class="col-lg-4 col-6 d-flex flex-column align-items-start justify-content-start text-left form-col">
+                    <label for="rating">Rating:</label>
+                    <input type="number" id="rating" name="rating" max="5" min="0.5" step="0.01" value="<?= htmlspecialchars($rating) ?>" required>
+                </div>
+                <div class="col-lg-4 col-6 d-flex flex-column align-items-start justify-content-start text-left form-col">
+                    <label for="shop">Shop:</label>
+                    <input type="text" id="shop" name="shop" maxlength="50" value="<?= htmlspecialchars($shop) ?>" required>
+                </div>
+                <div class="col-lg-4 col-6 d-flex flex-column align-items-start justify-content-start text-left form-col">
+                    <label for="image">Image:</label>
+                    <input type="text" id="image" name="image" value="<?= htmlspecialchars($image) ?>">
+                </div>
+            </div>
+            <div class="row form-row">
+                <div class="col-12 d-flex flex-column align-items-start justify-content-start text-left form-col">
+                    <label for="description">Description:</label>
+                    <textarea id="description" name="description" rows="4" maxlength="200"><?= htmlspecialchars($description) ?></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 d-flex flex-row align-items-end justify-content-end text-left">
+                    <button type="submit">Update</button>
+                </div>
+            </div>
         </form>
     </section>
+
     <script src="https://kit.fontawesome.com/8b39d50696.js" crossorigin="anonymous"></script>
 </body>
 

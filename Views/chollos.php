@@ -1,7 +1,7 @@
 <?php
-ini_set('display_errors', 1);
+/* ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+error_reporting(E_ALL); */
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -12,6 +12,7 @@ $dotenv->load();
 session_start();
 
 $username = $_SESSION["username"];
+$role = $_SESSION["role"];
 
 $message = "";
 
@@ -74,25 +75,62 @@ if ($stmt === false) {
             <i class="fa-solid fa-magnifying-glass"></i>
             <input type="text" id="searchbar" name="searchbar" placeholder="Search deals here...">
         </div>
-        <div class="col-lg-3 col-6 d-flex flex-row align-items-center justify-content-end text-end user-div">
-            <i class="fa-regular fa-user"></i>
-            <h4><?php echo $username ?></h4>
-        </div>
-        <!--         <div class="col-lg-3 col-6 d-flex flex-row align-items-center justify-content-end text-end user-div">
-            <i class="fa-regular fa-user"></i>
-            <h4>Login/Register</h4>
-        </div> -->
+        <?php
+        if (!empty($username)) {
+
+        ?>
+            <div class="col-lg-3 col-6 d-flex flex-row align-items-center justify-content-end text-end user-div">
+                <i class="fa-regular fa-user"></i>
+                <h4><?php echo $username ?></h4>
+            </div>
+        <?php
+        } else { ?>
+            <div class="col-lg-3 col-6 d-flex flex-row align-items-center justify-content-end text-end user-div">
+                <a class="login-register-a" href="./login.php">
+                    <h4>Login/Register</h4>
+                </a>
+            </div>
+        <?php
+        }
+
+        ?>
     </header>
-    <nav>
-        <div>
-            <i class="fa-solid fa-pencil"></i>
-            <a href="crear.php">Create</a>
-        </div>
-        <div>
-            <i class="fa-solid fa-sack-dollar"></i>
-            <a href="#">My deals</a>
-        </div>
-    </nav>
+
+    <?php
+    if (!empty($username)) {
+
+    ?>
+        <nav>
+            <div>
+                <a href="crear.php">
+                    <i class="fa-solid fa-pencil"></i>
+                    <span>
+                        Create
+                    </span>
+                </a>
+            </div>
+            <div>
+                <a href="misChollos.php">
+                    <i class="fa-solid fa-sack-dollar"></i>
+                    <span>
+                        My Deals
+                    </span>
+                </a>
+            </div>
+            <div>
+                <a href="../Controllers/disconnect.php">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>
+                        Logout
+                    </span>
+                </a>
+            </div>
+        </nav>
+    <?php
+    }
+
+    ?>
+
 
     <section class="container-fluid px-5 mt-5 main-deals-section">
         <h1>The best Deals!</h1>
@@ -171,7 +209,6 @@ if ($stmt === false) {
                             <?php
                             if ($username === $userDeal) {
 
-
                             ?>
                                 <div class="col-lg-6 d-flex flex-row align-items-center justify-content-center text-center shop-col">
                                     <form action="./editar.php" method="POST">
@@ -185,9 +222,21 @@ if ($stmt === false) {
                                 </div>
 
                             <?php
-
                             }
-
+                            if ($role === "admin") {
+                            ?>
+                                <div class="col-lg-6 d-flex flex-row align-items-center justify-content-center text-center shop-col">
+                                    <form action="./editar.php" method="POST">
+                                        <input type="hidden" name="id" value=<?php echo $id ?>>
+                                        <button type="submit" class="edit-button">Edit</button>
+                                    </form>
+                                    <form action="../Controllers/eliminarChollo.php" method="POST">
+                                        <input type="hidden" name="id" value=<?php echo $id ?>>
+                                        <button type="submit" class="delete-button">Delete</button>
+                                    </form>
+                                </div>
+                            <?php
+                            }
                             ?>
                             <div class="col-lg-3 d-flex flex-row align-items-end justify-content-end text-end shop-col">
                                 <span>Usuario: <span><?php echo $userDeal ?></span></span>

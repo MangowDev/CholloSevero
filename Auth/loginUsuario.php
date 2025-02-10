@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         exit();
     }
 
-    $stmt = $db->prepare("SELECT id, username, password FROM user WHERE username = ?");
+    $stmt = $db->prepare("SELECT id, username, password, role FROM user WHERE username = ?");
     if ($stmt === false) {
         die("Prepare failed: " . $db->error);
     }
@@ -42,13 +42,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $stmt->store_result();
 
     if ($stmt->num_rows > 0) {
-        $stmt->bind_result($id, $username, $hashed_password);
+        $stmt->bind_result($id, $username, $hashed_password, $role);
         $stmt->fetch();
 
         if (password_verify($password, $hashed_password)) {
             session_start();
             $_SESSION["username"] = $username;
             $_SESSION["id"] = $id;
+            $_SESSION["role"] = $role;
             header("Location: ../Views/chollos.php?");
             exit();
         } else {

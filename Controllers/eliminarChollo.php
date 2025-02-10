@@ -44,6 +44,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         exit();
     }
 } else {
-    header("Location: ../Views/crear.php?message=$message");
+    header("Location: ../Views/chollos.php?message=$message");
     exit();
 }

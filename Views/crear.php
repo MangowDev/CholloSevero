@@ -44,27 +44,46 @@ $username = $_SESSION["username"];
             <i class="fa-solid fa-magnifying-glass"></i>
             <input type="text" id="searchbar" name="searchbar" placeholder="Search deals here...">
         </div>
-                <div class="col-lg-3 col-6 d-flex flex-row align-items-center justify-content-end text-end user-div">
+        <div class="col-lg-3 col-6 d-flex flex-row align-items-center justify-content-end text-end user-div">
             <i class="fa-regular fa-user"></i>
             <h4><?php echo $username ?></h4>
-        </div> 
+        </div>
         <!-- <div class="col-lg-3 col-6 d-flex flex-row align-items-center justify-content-end text-end user-div">
             <i class="fa-regular fa-user"></i>
             <h4>Login/Register</h4>
         </div> -->
     </header>
     <nav>
-        <div>
-            <i class="fa-solid fa-pencil"></i>
-            <a href="crear.php">Create</a>
-        </div>
-        <div>
-            <i class="fa-solid fa-sack-dollar"></i>
-            <a href="#">My deals</a>
-        </div>
-    </nav>
-    <section>
-        <form action="../Controllers/crearChollo.php" method="POST">
+            <div>
+                <a href="crear.php">
+                    <i class="fa-solid fa-pencil"></i>
+                    <span>
+                        Create
+                    </span>
+                </a>
+            </div>
+            <div>
+                <a href="#">
+                    <i class="fa-solid fa-sack-dollar"></i>
+                    <span>
+                        My Deals
+                    </span>
+                </a>
+            </div>
+            <div>
+                <a href="../Controllers/disconnect.php">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>
+                        Logout
+                    </span>
+                </a>
+            </div>
+        </nav>
+    <section class="container-fluid p-4">
+        <form class="container-fluid px-4" action="../Controllers/crearChollo.php" method="POST">
+            <div class="row form-row">
+                <h4>Create Deal</h4>
+            </div>
             <div class="row form-row">
                 <div class="col-lg-4 col-6 d-flex flex-column align-items-startjustify-content-start text-left form-col">
                     <label for="title">Title:</label>
@@ -83,7 +102,7 @@ $username = $_SESSION["username"];
                 <div class="col-lg-4 col-6 d-flex flex-column align-items-start justify-content-start text-left form-col">
 
                     <label for="rating">Rating:</label>
-                    <input type="number" id="rating" max="5" step="0.01" name="rating" required>
+                    <input type="number" id="rating" max="5" min="0.5" step="0.01" name="rating" required>
                 </div>
                 <div class="col-lg-4 col-6 d-flex flex-column align-items-start justify-content-start text-left form-col">
 
@@ -102,7 +121,11 @@ $username = $_SESSION["username"];
                     <textarea id="description" name="description" rows="4" maxlength="200"></textarea>
                 </div>
             </div>
-            <button type="submit">Send</button>
+            <div class="row">
+                <div class="col-12 d-flex flex-row align-items-end justify-content-end text-left">
+                    <button type="submit">Create</button>
+                </div>
+            </div>
         </form>
 
     </section>
