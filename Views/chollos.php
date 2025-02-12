@@ -175,7 +175,7 @@ if ($stmt === false) {
                     <div class="d-flex flex-column align-items-start justify-content-start text-left deal-col">
                         <div class="d-flex flex-row align-items-center justify-content-start text-left deal-first-row">
                             <div class="col-xl-3 col-lg-4 col-12 d-flex flex-column align-items-start justify-content-start text-left deal-img-col">
-                                <div class="deal-img" style="background: url('<?php echo $image; ?>'); background-position: center; background-size: cover; background-repeat: no-repeat;"></div>
+                            <div class="deal-img" style="background: url('<?php echo htmlspecialchars($image); ?>'); background-position: center; background-size: cover; background-repeat: no-repeat;"></div>
                             </div>
                             <div class="col-xl-9 col-lg-8 col-12 d-flex flex-column align-items-start justify-content-start text-left deal-info-col">
                                 <div class="col-12 d-flex flex-row align-items-center justify-content-start text-left deal-title">
@@ -254,6 +254,37 @@ if ($stmt === false) {
         </div>
 
     </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const searchBar = document.getElementById("searchbar");
+            const deals = document.querySelectorAll(".deal-col");
+
+            function searchDeals() {
+                let query = searchBar.value.toLowerCase().trim();
+
+                deals.forEach(deal => {
+                    let title = deal.querySelector(".deal-title h4").textContent.toLowerCase();
+
+                    if (!title.includes(query)) {
+                        deal.classList.remove("deal-col");
+                        deal.classList.add("hidden-col");
+                    } else {
+                        deal.classList.remove("hidden-col");
+                        deal.classList.add("deal-col");
+                    }
+                });
+            }
+
+            searchBar.addEventListener("keydown", function(event) {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                    searchDeals();
+                }
+            });
+        });
+    </script>
+
 
     <script src="https://kit.fontawesome.com/8b39d50696.js" crossorigin="anonymous"></script>
 

@@ -2,6 +2,10 @@
 
 session_start();
 
+if (!isset($_SESSION["username"])) {
+    header("Location: chollos.php");
+    exit;
+}
 $username = $_SESSION["username"];
 
 ?>
@@ -54,31 +58,31 @@ $username = $_SESSION["username"];
         </div> -->
     </header>
     <nav>
-            <div>
-                <a href="crear.php">
-                    <i class="fa-solid fa-pencil"></i>
-                    <span>
-                        Create
-                    </span>
-                </a>
-            </div>
-            <div>
-                <a href="#">
-                    <i class="fa-solid fa-sack-dollar"></i>
-                    <span>
-                        My Deals
-                    </span>
-                </a>
-            </div>
-            <div>
-                <a href="../Controllers/disconnect.php">
-                    <i class="fa-solid fa-right-from-bracket"></i>
-                    <span>
-                        Logout
-                    </span>
-                </a>
-            </div>
-        </nav>
+        <div>
+            <a href="crear.php">
+                <i class="fa-solid fa-pencil"></i>
+                <span>
+                    Create
+                </span>
+            </a>
+        </div>
+        <div>
+            <a href="./misChollos.php">
+                <i class="fa-solid fa-sack-dollar"></i>
+                <span>
+                    My Deals
+                </span>
+            </a>
+        </div>
+        <div>
+            <a href="../Controllers/disconnect.php">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>
+                    Logout
+                </span>
+            </a>
+        </div>
+    </nav>
     <section class="container-fluid p-4">
         <form class="container-fluid px-4" action="../Controllers/crearChollo.php" method="POST">
             <div class="row form-row">
@@ -87,7 +91,7 @@ $username = $_SESSION["username"];
             <div class="row form-row">
                 <div class="col-lg-4 col-6 d-flex flex-column align-items-startjustify-content-start text-left form-col">
                     <label for="title">Title:</label>
-                    <input type="text" id="title" name="title" required>
+                    <input type="text" id="title" name="title" maxlength="30" required>
                 </div>
                 <div class="col-lg-4 col-6 d-flex flex-column align-items-start justify-content-start text-left form-col">
                     <label for="price">Price:</label>
@@ -112,7 +116,7 @@ $username = $_SESSION["username"];
                 <div class="col-lg-4 col-6 d-flex flex-column align-items-start justify-content-start text-left form-col">
 
                     <label for="image">Image:</label>
-                    <input type="text" id="image" name="image">
+                    <input type="text" id="image" name="image" maxlength="300">
                 </div>
             </div>
             <div class="row form-row">

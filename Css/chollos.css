@@ -233,6 +233,12 @@ div.deal-second-row{
   font-weight: 600;
 }
 
+.edit-button:hover, 
+.delete-button:hover{
+  color: #1b98ff;
+}
+
+
 .deal-info-col{
   margin-left: 20px;
   padding-right: 10px;
@@ -283,4 +289,8 @@ div.deal-second-row{
 
 .deal-first-row{
   width: 100%;
+}
+
+div.hidden-col {
+  display: none !important;
 }

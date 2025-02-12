@@ -217,19 +217,30 @@ div.deal-second-row{
 }
 
 .edit-vertical-button{
-  border: none;
-  background-color: transparent;
+  border: 1px solid #1E3A5F;
+  background-color: #1b98ff;
+  border-radius: 20px;
+  padding: 4px 13px;
   font-size: 24px;
   color: #1E3A5F;
   font-weight: 600;
 }
 
+.edit-vertical-button:hover, 
+.delete-vertical-button:hover{
+  color: #193050;
+  background-color: #1bc2ff;
+  border: 1px solid #193050;
+}
+
 .delete-vertical-button{
   margin-top: 40px;
-  border: none;
-  background-color: transparent;
-  color: #1E3A5F;
+  border: 1px solid #1E3A5F;
+  background-color: #1b98ff;
+  border-radius: 20px;
+  padding: 4px 13px;
   font-size: 24px;
+  color: #1E3A5F;
   font-weight: 600;
 }
 
@@ -283,4 +294,8 @@ div.deal-second-row{
 
 .deal-first-row{
   width: 100%;
+}
+
+div.hidden-col {
+  display: none !important;
 }

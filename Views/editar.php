@@ -1,14 +1,22 @@
 <?php
 
-ini_set('display_errors', 1);
+/* ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+error_reporting(E_ALL); */
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $dotenvPath = '../';
 $dotenv = Dotenv\Dotenv::createImmutable($dotenvPath, '.env.local');
 $dotenv->load();
+
+session_start();
+
+if (!isset($_SESSION["username"])) {
+    header("Location: chollos.php");
+    exit;
+}
+$username = $_SESSION["username"];
 
 $message = "";
 
@@ -137,7 +145,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <div class="row form-row">
                 <div class="col-lg-4 col-6 d-flex flex-column align-items-start justify-content-start text-left form-col">
                     <label for="title">Title:</label>
-                    <input type="text" id="title" name="title" value="<?= htmlspecialchars($title) ?>" required>
+                    <input type="text" id="title" name="title" value="<?= htmlspecialchars($title) ?>" maxlength="30" required>
                 </div>
                 <div class="col-lg-4 col-6 d-flex flex-column align-items-start justify-content-start text-left form-col">
                     <label for="price">Price:</label>
@@ -159,7 +167,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 </div>
                 <div class="col-lg-4 col-6 d-flex flex-column align-items-start justify-content-start text-left form-col">
                     <label for="image">Image:</label>
-                    <input type="text" id="image" name="image" value="<?= htmlspecialchars($image) ?>">
+                    <input type="text" id="image" name="image" maxlength="300" value="<?= htmlspecialchars($image) ?>">
                 </div>
             </div>
             <div class="row form-row">

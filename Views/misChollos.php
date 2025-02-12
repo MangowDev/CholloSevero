@@ -1,7 +1,7 @@
 <?php
-ini_set('display_errors', 1);
+/* ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+error_reporting(E_ALL); */
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -10,6 +10,12 @@ $dotenv = Dotenv\Dotenv::createImmutable($dotenvPath, '.env.local');
 $dotenv->load();
 
 session_start();
+
+if (!isset($_SESSION["username"])) {
+    header("Location: chollos.php");
+    exit;
+}
+$username = $_SESSION["username"];
 
 $username = $_SESSION["username"];
 $role = $_SESSION["role"];
@@ -199,6 +205,36 @@ if ($stmt === false) {
         </div>
 
     </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const searchBar = document.getElementById("searchbar");
+            const deals = document.querySelectorAll(".deal-col");
+
+            function searchDeals() {
+                let query = searchBar.value.toLowerCase().trim();
+
+                deals.forEach(deal => {
+                    let title = deal.querySelector(".deal-title h4").textContent.toLowerCase();
+
+                    if (!title.includes(query)) {
+                        deal.classList.remove("deal-col");
+                        deal.classList.add("hidden-col");
+                    } else {
+                        deal.classList.remove("hidden-col");
+                        deal.classList.add("deal-col");
+                    }
+                });
+            }
+
+            searchBar.addEventListener("keydown", function(event) {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                    searchDeals();
+                }
+            });
+        });
+    </script>
 
     <script src="https://kit.fontawesome.com/8b39d50696.js" crossorigin="anonymous"></script>
 
